@@ -1,3 +1,14 @@
 from django.shortcuts import render
+from app.models import Child, Profile
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
 
-# Create your views here.
+
+class ChildCreateView(CreateView):
+    model = Child
+    fields = ('name', 'age', 'pin')
+    success_url = '/'
+
+
+class IndexView(TemplateView):
+    template_name = "index.html"
