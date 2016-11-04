@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView
 
 class ChildCreateView(CreateView):
     model = Child
-    fields = ('name', 'age', 'pin')
+    fields = ('name', 'parent', 'age', 'pin')
     success_url = '/'
 
 

@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Child Care</title>
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}" media="screen" title="no title">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" media="screen" title="no title">
+  </head>
+  <body>
+  <div class="container-fluid">
+    <ul class="menu">
+      <li class="active"><a href="{% url 'index_view' %}">Home</a></li>
+      <li><a href="{% url 'child_create_view' %}">Add Child</a></li>
+    </ul>
+
+    <h1>Don't Cry Daycare</h1>
+
+
+    {% block content %}
+    {% endblock %}
+    
+  </div>
+  <script src="{% static 'js/vendor/jquery.js' %}"></script>
+  <script src="{% static 'js/vendor/foundation.min.js' %}"></script>
+  </body>
+</html>

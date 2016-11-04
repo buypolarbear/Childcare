@@ -24,6 +24,6 @@ def create_user_profile(**kwargs):
 class Child(models.Model):
     in_class = models.BooleanField(default=False)
     name = models.CharField(max_length=50)
+    parent = models.CharField(max_length=50)
     age = models.IntegerField()
-    parent = models.ForeignKey(Profile)
     pin = models.CharField(max_length=4)
