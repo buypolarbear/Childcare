@@ -9,17 +9,18 @@
   </head>
   <body>
   <div class="container-fluid">
+    {% if self.request.user.Profile.is_employee %}
     <ul class="menu">
-      <li class="active"><a href="{% url 'index_view' %}">Home</a></li>
-      <li><a href="{% url 'child_create_view' %}">Add Child</a></li>
+      <li class="{% block home_active %}{% endblock %}"><a href="{% url 'index_view' %}">Home</a></li>
+      <li class="{% block child_form_active %}{% endblock %}"><a href="{% url 'child_create_view' %}">Add Child</a></li>
     </ul>
-
+    {% endif %}
     <h1>Don't Cry Daycare</h1>
 
 
     {% block content %}
     {% endblock %}
-    
+
   </div>
   <script src="{% static 'js/vendor/jquery.js' %}"></script>
   <script src="{% static 'js/vendor/foundation.min.js' %}"></script>

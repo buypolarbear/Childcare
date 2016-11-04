@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from app.views import IndexView, ChildCreateView
+from app.views import IndexView, ChildCreateView, ChildStatusUpdateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name="index_view"),
     url(r'^child/create/$', ChildCreateView.as_view(), name='child_create_view'),
+    url(r'^child_status/(?P<pk>\d+)/update', ChildStatusUpdateView.as_view(), name='child_status_update_view')
 ]

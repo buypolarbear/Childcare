@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
+{% block home_active %}
+active
+{% endblock %}
 {% block content %}
 
-
-
+{% if not request.user.Profile.is_employee %}
+<form class="" method="get">
+  <input type="text" name="pin">
+  <input type="button" value="Next">
+</form>
+{% endif %}
 {% endblock %}

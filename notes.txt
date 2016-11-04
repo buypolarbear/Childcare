@@ -1,0 +1,4 @@
+
+Is it possible to have the check-in page say
+"{{child name}} has been checked in/out!"
+for about 5-8 seconds before redirecting back to home page?
