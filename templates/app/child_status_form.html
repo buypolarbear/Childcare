@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<div class="row">
+  <div class="large-4 columns">
+    {% if self.in_class is True %}
+    {{ child.name }} is in class.
+    <form class="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="success-button", type="submit", value="PickUp">
+    </form>
+    {% endif %}
+    {% if not self.in_class is True %}
+    {{ child.name }} is not in class.
+    <form class="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="success-button", type="submit", value="Drop Off">
+    </form>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}

@@ -5,9 +5,13 @@ active
 {% block content %}
 
 {% if not request.user.Profile.is_employee %}
-<form class="" method="get">
-  <input type="text" name="pin">
-  <input type="button" value="Next">
-</form>
+<div class="row">
+  <div class="medium-4 columns">
+    <form class="" action="{% url 'blah_view' %}" method="get">
+      <input type="text" name="pin">
+      <input type="button" value="NEXT">
+    </form>
+  </div>
+</div>
 {% endif %}
 {% endblock %}

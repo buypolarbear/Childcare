@@ -9,10 +9,16 @@
   </head>
   <body>
   <div class="container-fluid">
-    {% if self.request.user.Profile.is_employee %}
+    {% if request.user.profile.is_employee %}
     <ul class="menu">
       <li class="{% block home_active %}{% endblock %}"><a href="{% url 'index_view' %}">Home</a></li>
       <li class="{% block child_form_active %}{% endblock %}"><a href="{% url 'child_create_view' %}">Add Child</a></li>
+      <li class="{% block child_list_active %}{% endblock %}"><a href="{% url 'child_list_view' %}">Child List</a></li>
+      {% if not request.user.is_authenticated %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      {% else %}
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% endif %}
     </ul>
     {% endif %}
     <h1>Don't Cry Daycare</h1>
@@ -20,6 +26,7 @@
 
     {% block content %}
     {% endblock %}
+
 
   </div>
   <script src="{% static 'js/vendor/jquery.js' %}"></script>

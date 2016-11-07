@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block child_list_active %}
+active
+{% endblock %}
+{% block content %}
+<h3>Children and Status</h3>
+{% for child in object_list %}
+
+<div class="row">
+  <div class="medium-4 columns">
+
+    <h5><a href="{% url 'child_checkin_log_list_view' child.id %}">{{ child.name }}</a></h5>
+
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
