@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from datetime import datetime
+import time
 
 
 class ChildCreateView(CreateView):
@@ -15,13 +16,6 @@ class ChildCreateView(CreateView):
 
 class IndexView(TemplateView):
     template_name = "index.html"
-
-    # def get_context_data(self):
-    #     context = super().get_context_data()
-    #     if self.request.GET:
-    #         context['child'] = Child.objects.get(pin=request.GET.get['pin'])
-    #         return HttpResponseRedirect(reverse)
-    #     return context
 
 
 class BlahView(TemplateView):
@@ -34,7 +28,7 @@ class BlahView(TemplateView):
         if here:
             if not here.in_class:
                 return HttpResponseRedirect(reverse('child_status_time_create_view', args=(child.id,)))
-            return HttpResponseRedirect(reverse('child_status_update_view', args=(child.id,)))
+            return HttpResponseRedirect(reverse('child_status_update_view', args=(here.id,)))
         return HttpResponseRedirect(reverse('child_status_time_create_view', args=(child.id,)))
 
 
@@ -42,7 +36,10 @@ class ChildStatusTimeCreateView(CreateView):
     model = CheckIn_Log
     fields = ("in_class",)
     template_name = 'app/child_status_form.html'
-    success_url = reverse_lazy('index_view')
+
+    def get_success_url(self):
+        time.sleep(6)
+        return reverse_lazy('index_view')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,9 +48,7 @@ class ChildStatusTimeCreateView(CreateView):
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        if instance.in_class is False:
-            instance.pick_up = datetime.now()
-            return super().form_valid(form)
+        instance.child = Child.objects.get(id=self.kwargs['pk'])
         return super().form_valid(form)
 
 
@@ -63,11 +58,14 @@ class ChildStatusUpdateView(UpdateView):
     template_name = 'app/child_status_form.html'
     success_url = reverse_lazy('index_view')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["child"] = CheckIn_Log.objects.get(id=self.kwargs['pk'])
+        return context
+
     def form_valid(self, form):
         instance = form.save(commit=False)
-        if instance.in_class is True:
-            instance.drop_off = datetime.now()
-            return super().form_valid(form)
+        instance.pick_up = datetime.now()
         return super().form_valid(form)
 
 
@@ -81,11 +79,13 @@ class ChildListView(ListView):
 
 
 class ChildCheckIn_LogListView(ListView):
-    model = CheckIn_Log
-    success_url = reverse_lazy('index_view')
     template_name = "child_checkin_log.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['checkin_log'] = CheckIn_Log.objects.filter(child=self.child)
+        context['child'] = Child.objects.get(id=self.kwargs['pk'])
         return context
+
+    def get_queryset(self, **kwargs):
+        child = Child.objects.get(id=self.kwargs['pk'])
+        return CheckIn_Log.objects.filter(child=child)

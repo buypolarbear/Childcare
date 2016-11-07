@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-This will be a table! Wahoo
-
+<br>
+<h2>{{ child.parent }}</h2>
+<h4>{{ child.name }}</h4>
+<table>
+  <thead>
+    <tr>
+      <th width="150">Date</th>
+      <th width="150">Time In Class</th>
+      <th width="150">Unpaid Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+    <tr>
+      <td>{{ object.drop_off.date }}</td>
+      <td>{{ object.time_in_class }} hours</td>
+      <td>moneymoneymoney</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

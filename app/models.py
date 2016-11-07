@@ -32,9 +32,12 @@ class Child(models.Model):
     age = models.IntegerField()
     pin = models.CharField(max_length=4)
 
-    @property
     def __str__(self):
         return self.name
+
+    @property
+    def status(self):
+        return self.checkin_log_set.first()
 
 
 class CheckIn_Log(models.Model):
@@ -43,16 +46,20 @@ class CheckIn_Log(models.Model):
     pick_up = models.DateTimeField(auto_now=False, null=True)
     in_class = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('-drop_off',)
+
     def __str__(self):
         return self.child.name
 
     @property
     def status_of_child(self):
         if self.in_class is True:
-            return str("is in class")
+            return str("In Class")
         else:
-            return str("is not in class")
+            return str("Picked Up")
 
     @property
     def time_in_class(self):
-        return self.pick_up - self.drop_off
+        td = (self.pick_up - self.drop_off)
+        return round(((td.seconds / 60) / 60), 3)

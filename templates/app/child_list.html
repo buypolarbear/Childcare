@@ -4,16 +4,31 @@ active
 {% endblock %}
 {% block content %}
 <h3>Children and Status</h3>
-{% for child in object_list %}
 
 <div class="row">
-  <div class="medium-4 columns">
-
-    <h5><a href="{% url 'child_checkin_log_list_view' child.id %}">{{ child.name }}</a></h5>
-
+  <div class="medium-8 columns">
+    <table>
+      <thead>
+        <tr>
+          <th width="150">Child Name</th>
+          <th width="150">Parent Name</th>
+          <th width="150">Status</th>
+          <th width="150">PIN #</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in object_list %}
+        <tr>
+          <td><a href="{% url 'child_checkin_log_list_view' object.id %}">{{ object.name }}</a></td>
+          <td>{{ object.parent }}</td>
+          <td>{{ object.status.status_of_child }}</td>
+          <td>{{ object.pin }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 
-{% endfor %}
 
 {% endblock %}
