@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-  <div class="large-4 columns">
+  <div class="large-6 medium-centered columns">
     <form id="change" class="" method="post">
       {{ child.name }} is {% if not object.in_class %}not{% endif %} in class.
       {% csrf_token %}
@@ -11,9 +11,13 @@
     </form>
   </div>
 </div>
-<p id="message" style="display:none">
-  {{ child.name }} has been {{ object.in_class|yesno:"Picked Up,Dropped Off" }}
-</p>
+<div class="row">
+  <div class="large-6 medium-centered columns">
+    <p id="message" style="display:none">
+      {{ child.name }} has been {{ object.in_class|yesno:"Picked Up,Dropped Off" }}
+    </p>
+  </div>
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -24,7 +28,7 @@
     $("#message").show()
     setTimeout(function(){
       $("#change").unbind("submit").submit()
-    },6000);
+    },4000);
   });
 </script>
 {% endblock %}

@@ -9,19 +9,27 @@
   </head>
   <body>
   <div class="container-fluid">
-    {% if request.user.profile.is_employee %}
-    <ul class="menu">
-      <li class="{% block home_active %}{% endblock %}"><a href="{% url 'index_view' %}">Home</a></li>
-      <li class="{% block child_form_active %}{% endblock %}"><a href="{% url 'child_create_view' %}">Add Child</a></li>
-      <li class="{% block child_list_active %}{% endblock %}"><a href="{% url 'child_list_view' %}">Child List</a></li>
-      {% if not request.user.is_authenticated %}
-      <li><a href="{% url 'login' %}">Login</a></li>
-      {% else %}
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-      {% endif %}
-    </ul>
-    {% endif %}
+    <div class="row">
+      <div class="large-5 medium-centered columns">
+        {% if request.user.profile.is_employee %}
+        <ul class="menu">
+          <li class="{% block home_active %}{% endblock %}"><a href="{% url 'index_view' %}">Home</a></li>
+          <li class="{% block child_form_active %}{% endblock %}"><a href="{% url 'child_create_view' %}">Add Child</a></li>
+          <li class="{% block child_list_active %}{% endblock %}"><a href="{% url 'child_list_view' %}">Child List</a></li>
+          {% if not request.user.is_authenticated %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% else %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+<div class="row">
+  <div class="large-5 medium-centered columns">
     <h1>Don't Cry Daycare</h1>
+  </div>
+</div>
 
 
     {% block content %}

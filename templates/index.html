@@ -6,7 +6,8 @@ active
 
 {% if not request.user.Profile.is_employee %}
 <div class="row">
-  <div class="medium-4 columns">
+  <div class="large-6 medium-centered columns">
+    <br>
     <form class="" action="{% url 'blah_view' %}" method="get">
       <input type="text" name="pin">
       <input type="button" value="NEXT">
