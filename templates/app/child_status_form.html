@@ -3,22 +3,28 @@
 
 <div class="row">
   <div class="large-4 columns">
-    {% if object.in_class is True %}
-    {{ child.child.name }} is in class.
-    <form class="" method="post">
+    <form id="change" class="" method="post">
+      {{ child.name }} is {% if not object.in_class %}not{% endif %} in class.
       {% csrf_token %}
       {{ form.as_p }}
-      <input class="success-button", type="submit", value="Pick Up">
+      <input class="success-button" type="submit" value="{{ object.in_class|yesno:"Pick Up,Drop Off" }}">
     </form>
-    {% else %}
-    {{ child.name }} is not in class.
-    <form class="" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input class="success-button", type="submit", value="Drop Off">
-    </form>
-    {% endif %}
   </div>
 </div>
+<p id="message" style="display:none">
+  {{ child.name }} has been {{ object.in_class|yesno:"Picked Up,Dropped Off" }}
+</p>
+{% endblock %}
 
+{% block javascript %}
+<script type="text/javascript">
+  $("#change").on("submit", function(e) {
+    e.preventDefault()
+    $(this).hide()
+    $("#message").show()
+    setTimeout(function(){
+      $("#change").unbind("submit").submit()
+    },6000);
+  });
+</script>
 {% endblock %}

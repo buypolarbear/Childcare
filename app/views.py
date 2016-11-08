@@ -5,7 +5,6 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from datetime import datetime
-import time
 
 
 class ChildCreateView(CreateView):
@@ -38,7 +37,6 @@ class ChildStatusTimeCreateView(CreateView):
     template_name = 'app/child_status_form.html'
 
     def get_success_url(self):
-        time.sleep(6)
         return reverse_lazy('index_view')
 
     def get_context_data(self, **kwargs):
@@ -60,7 +58,7 @@ class ChildStatusUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["child"] = CheckIn_Log.objects.get(id=self.kwargs['pk'])
+        context["child"] = CheckIn_Log.objects.get(id=self.kwargs['pk']).child
         return context
 
     def form_valid(self, form):
