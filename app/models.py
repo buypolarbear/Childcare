@@ -30,7 +30,7 @@ class Child(models.Model):
     name = models.CharField(max_length=50)
     parent = models.CharField(max_length=50)
     age = models.IntegerField()
-    pin = models.CharField(max_length=4)
+    pin = models.CharField(unique=True, max_length=4)
 
     def __str__(self):
         return self.name

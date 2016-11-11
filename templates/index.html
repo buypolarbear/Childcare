@@ -15,4 +15,15 @@ active
   </div>
 </div>
 {% endif %}
+<br>
+<br>
+<div class="row">
+  <div class="large-3 medium-centered columns">
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'login' %}">Employee? Login Here</a>
+    {% else %}
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
