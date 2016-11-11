@@ -12,10 +12,6 @@ class ChildCreateView(CreateView):
     fields = ('name', 'parent', 'age', 'pin')
     success_url = reverse_lazy('index_view')
 
-    def form_valid(self, form):
-        instance = form.save(commit=False)
-        
-
 
 class ChildUpdateView(UpdateView):
     model = Child
